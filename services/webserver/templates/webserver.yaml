@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+  labels:
+    app: webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      containers:
+      - name: webserver
+        image: weudacrvol1.azurecr.io/webserver_second:v1
+        imagePullPolicy: IfNotPresent        
+        ports:
+        - containerPort: 5000
+        resources:
+            limits:
+              ephemeral-storage: 256M
+              memory: 256M
+              cpu: 100m
+            requests:
+              ephemeral-storage: 256M
+              memory: 256M
+              cpu: 100m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 5000
+  selector:
+    app: webserver

@@ -1,0 +1,5 @@
+./infrastructure/InfrastructureAsCode/ACR/.terraform
+./infrastructure/InfrastructureAsCode/AKS/.terraform/providers/registry.terraform.io/hashicorp/azurerm
+./infrastructure/InfrastructureAsCode/AKS/.terraform.lock.hcl
+./infrastructure/InfrastructureAsCode/RA/.terraform
+./infrastructure/InfrastructureAsCode/RA/.terraform.lock.hcl

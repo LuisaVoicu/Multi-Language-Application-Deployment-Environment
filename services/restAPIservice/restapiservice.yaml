@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restapiservice
+  labels:
+    app: restapiservice
+spec:
+  selector:
+    matchLabels:
+      app: restapiservice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: restapiservice
+    spec:
+      containers:
+      - name: restapiservice
+        image: weudacrvol1.azurecr.io/restapiservice:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8081
+        resources:
+            limits:
+              ephemeral-storage: 256M
+              memory: 256M
+              cpu: 100m
+            requests:
+              ephemeral-storage: 256M
+              memory: 256M
+              cpu: 100m
+      imagePullSecrets:
+      - name: py-regcred
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: restapiservice
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8081
+  selector:
+    app: restapiservice
